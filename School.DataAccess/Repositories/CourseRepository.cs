@@ -9,8 +9,7 @@ namespace School.DataAccess.Repositories
         /// Constructor, initializes an instance of <see cref="CourseRepository"/>
         /// </summary>
         /// <param name="schoolContext"></param>
-
-        public CourseRepository(SchoolContext schoolContext)
+        public CourseRepository(SchoolDBContext schoolContext)
             :base(schoolContext)
         {
         }

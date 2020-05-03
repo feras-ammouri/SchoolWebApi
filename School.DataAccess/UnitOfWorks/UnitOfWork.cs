@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Data;
+using Microsoft.EntityFrameworkCore;
 using School.DataAccess.Contracts;
 using School.DataAccess.Repositories;
+using School.DataAccess.Transactions;
 
 namespace School.DataAccess.UnitOfWorks
 {
-    public class UnitOfWork : IUnitOfWiork
+    public class UnitOfWork : IUnitOfWork
     {
         #region ' variables and properties '
 
-        private SchoolContext _schoolContext;
+        private SchoolDBContext _schoolContext;
 
         private IStudentRepository _studentRepository;
 
@@ -61,15 +61,31 @@ namespace School.DataAccess.UnitOfWorks
 
         #region ' methods '
 
-        public UnitOfWork(SchoolContext schoolContext)
+        /// <summary>
+        /// Constructor, initializes an instance of <see cref="UnitOfWork"/>
+        /// </summary>
+        /// <param name="schoolContext"></param>
+        public UnitOfWork(SchoolDBContext schoolContext)
         {
             _schoolContext = schoolContext;
         }
 
-        /// <inheritdoc <see cref="IUnitOfWiork"/>
+        /// <inheritdoc <see cref="IUnitOfWork"/>
+        public ITransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Snapshot)
+        {
+            return new DbTransaction(_schoolContext.Database.BeginTransaction(isolationLevel));
+        }
+
+        /// <inheritdoc <see cref="IUnitOfWork"/>
         public void Save()
         {
             _schoolContext.SaveChanges();
+        }
+
+        /// <inheritdoc <see cref="IUnitOfWork"/>
+        public void Dispose()
+        {
+            _schoolContext = null;
         }
 
         #endregion

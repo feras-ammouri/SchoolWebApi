@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace School.DataAccess.Entities
+namespace School.WebApi.Models
 {
-    public class Student : IEntity
+    public class Student : IModel
     {
         public int Id { get; set; }
 
@@ -10,8 +10,8 @@ namespace School.DataAccess.Entities
 
         public string LastName { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        //public DateTime DateOfBirth { get; set; }
 
-        public string Gender { get; set; }
+       // public Genders Gender { get; set; }
     }
 }

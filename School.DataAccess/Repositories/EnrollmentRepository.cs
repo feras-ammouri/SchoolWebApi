@@ -10,7 +10,7 @@ namespace School.DataAccess.Repositories
         /// </summary>
         /// <param name="schoolContext"></param>
 
-        public EnrollmentRepository(SchoolContext schoolContext)
+        public EnrollmentRepository(SchoolDBContext schoolContext)
             :base(schoolContext)
         {
         }

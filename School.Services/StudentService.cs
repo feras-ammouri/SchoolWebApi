@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using School.DataAccess.Entities;
 using School.DataAccess.UnitOfWorks;
 
@@ -13,28 +14,37 @@ namespace School.Services
     {
         #region ' variables and properties '
 
-        private IUnitOfWiork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
+
+        public Guid Id { get; set; }
 
         #endregion
 
         #region ' methods '
 
-        public StudentService(IUnitOfWiork unitOfWiork)
+        /// <summary>
+        /// Constructor, initializes an instance of <see cref="StudentService"/>
+        /// </summary>
+        /// <param name="unitOfWiork"></param>
+        public StudentService(IUnitOfWork unitOfWiork)
         {
+            Id = Guid.NewGuid();
             this._unitOfWork = unitOfWiork ?? throw new ArgumentException("unitOfWiork must not be null or empty");
         }
 
+        /// <inheritdoc cref="IStudentService"/>
         public Task AddNewStudent(Student student)
         {
             return Task.Run(() => this._unitOfWork.StudentRepository.Create(student));
         }
 
-
+        /// <inheritdoc cref="IStudentService"/>
         public Task UpdateStudent(Student student)
         {
             return Task.Run(() => this._unitOfWork.StudentRepository.Update(student));
         }
 
+        /// <inheritdoc cref="IStudentService"/>
         public Task DeleteStudent(int Id)
         {
             Expression<Func<Student, bool>> filter = x => x.Id.Equals(Id);
@@ -49,11 +59,13 @@ namespace School.Services
             return Task.Run(() => this._unitOfWork.StudentRepository.Delete(student));
         }
 
+        /// <inheritdoc cref="IStudentService"/>
         public Task<IEnumerable<Student>> GetAllStudents()
         {
             return Task.Run(() => this._unitOfWork.StudentRepository.GetAll());
         }
 
+        /// <inheritdoc cref="IStudentService"/>
         public Task<Student> GetStudentById(int Id)
         {
             Expression<Func<Student, bool>> filter = x => x.Id.Equals(Id);

@@ -6,7 +6,7 @@ using School.DataAccess.Entities;
 
 namespace School.DataAccess
 {
-    public class SchoolContext : DbContext
+    public class SchoolDBContext : DbContext
     {
         #region ' variables and properties '
 
@@ -20,15 +20,29 @@ namespace School.DataAccess
 
         #region ' methods '
 
+        public SchoolDBContext()
+        {
+
+        }
+
         /// <summary>
-        /// Constructor, initializes an instance of <see cref="SchoolContext"/>
+        /// Constructor, initializes an instance of <see cref="SchoolDBContext"/>
         /// </summary>
         /// <param name="dbContextOptions"></param>
-        public SchoolContext(DbContextOptions dbContextOptions) : 
+        public SchoolDBContext(DbContextOptions<SchoolDBContext> dbContextOptions) : 
             base(dbContextOptions)
         {
 
-        } 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+        }
 
         #endregion
     }

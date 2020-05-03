@@ -11,7 +11,7 @@ namespace School.DataAccess.Repositories
     {
         #region ' variables and properties '
 
-        protected SchoolContext _schoolContext; 
+        protected SchoolDBContext _schoolContext; 
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace School.DataAccess.Repositories
         /// </summary>
         /// <param name="schoolContext"></param>
 
-        public BaseRepository(SchoolContext schoolContext)
+        public BaseRepository(SchoolDBContext schoolContext)
         {
            this._schoolContext = schoolContext;
         }
